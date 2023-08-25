@@ -16,6 +16,16 @@ button.addEventListener("click", function () {
   // Total Harga
   totalHarga = totalHarga + parseInt(inputHarga.value);
   totalHargaKeseluruhan.innerHTML = totalHarga;
+
+  if (totalHarga <= tampungBudget) {
+    totalHargaKeseluruhan.setAttribute("class", "aman");
+    // ketika budget masih sesuai dengan total belanja
+    console.log("Budget Masih Aman");
+  } else {
+    // ketika budget gak cukup
+    totalHargaKeseluruhan.setAttribute("class", "danger");
+    console.log("Budget kaga cukup cui...");
+  }
 });
 
 setBudget.addEventListener("click", function () {
