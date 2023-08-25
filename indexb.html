@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly/javascript_compressed"></script>
+  <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+  <!-- include ar.js for A-Frame -->
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <style>
+    #blocklyDiv {
+      z-index: 9999;
+      position: fixed !important;
+      top: 0px;
+      border-radius: 16px;
+      /* opacity: 0.5; */
+    }
+
+    a-scene {
+      width: 300px !important;
+    }
+  </style>
+</head>
+<body style='margin : 0px; overflow: hidden;'>
+
+  <a-scene embedded arjs></a-scene>
+  <div id="blocklyDiv" style="width: 50vw; height: 100vh;"></div>
+  <xml id="toolbox" style="display: none">
+    <category name="Built In">
+      <block type="controls_if"></block>
+      <block type="text"></block>
+      <block type="controls_whileUntil"></block>
+    </category>
+    <category name="Text">
+      <block type="string_length"></block>
+    </category>
+  </xml>
+  <script>
+    
+
+
+
+Blockly.Blocks['string_length'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'length of %1',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE",
+          "check": "String"
+        }
+      ],
+      "output": "Number",
+      "colour": 160,
+      "tooltip": "Returns number of letters in the provided text.",
+      "helpUrl": "http://www.w3schools.com/jsref/jsref_length_string.asp"
+    });
+  }
+};
+
+Blockly.defineBlocksWithJsonArray([
+  // Block for colour picker.
+  {
+    "type": "colour_picker",
+    "message0": "%1",
+    "args0": [
+      {
+        "type": "field_colour",
+        "name": "COLOUR",
+        "colour": "#ff0000"
+      }
+    ],
+    "output": "Colour",
+    "helpUrl": "%{BKY_COLOUR_PICKER_HELPURL}",
+    "style": "colour_blocks",
+    "tooltip": "%{BKY_COLOUR_PICKER_TOOLTIP}",
+    "extensions": ["parent_tooltip_when_inline"]
+  },
+  // Block for random colour.
+  {
+    "type": "colour_random",
+    "message0": "%{BKY_COLOUR_RANDOM_TITLE}",
+    "output": "Colour",
+    "helpUrl": "%{BKY_COLOUR_RANDOM_HELPURL}",
+    "style": "colour_blocks",
+    "tooltip": "%{BKY_COLOUR_RANDOM_TOOLTIP}"
+  }
+]);
+
+var workspace = Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox')});
+
+      javascript.javascriptGenerator.forBlock['string_length'] = function(block, generator) {
+        console.log(javascript)
+        // String or array length.
+        var argument0 = generator.valueToCode(block, 'VALUE', javascript.Order.FUNCTION_CALL) || '\'\'';
+        console.log(argument0)
+        return `console.log(${argument0})`
+      };
+
+  javascript.javascriptGenerator.forBlock['console'] = function(block, generator) {
+  var statements_log = generator.statementToCode(block, 'log');
+  // TODO: Assemble javascript into code variable.
+  // const textValue = block.getFieldValue('TEXT');
+  console.log(block)
+  var code = `console.log("${textValue}")\n`;
+  return code;
+};
+
+  function updateCode(event) {
+    console.log(javascript)
+    const code = javascript.javascriptGenerator.workspaceToCode(workspace);
+    console.log(code);
+    Function(code)()
+  }
+workspace.addChangeListener(updateCode);
+  </script>
+</body>
+</html>
