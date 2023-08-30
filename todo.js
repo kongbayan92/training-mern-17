@@ -13,6 +13,57 @@ let hargaAfterDiskon = 0;
 let totalHarga = 0;
 let tampungBudget = 0;
 
+let actions = {
+  inputTitle: document.querySelector("#input-todo"),
+  inputPrice: document.querySelector("#input-harga"),
+};
+
+let data = {
+  tanggal: "2023-08-29T02:24:16.000Z",
+  pelanggan: {
+    nama: "Putri Hanifah",
+    alamat: "Jl. Tekukur 5 No. 45 Jakarta",
+    hp: "08934456778",
+  },
+  berat: 2,
+  selesai: false,
+  diambil: false,
+  total: 20000,
+  dibayar: 20000,
+  kembali: 0,
+  produk: [
+    {
+      nama: "Baju Anak",
+      jumlah: 2,
+      _id: "64ed56e5c170d96a12b4ec37",
+    },
+    {
+      nama: "Sprei Kasur",
+      jumlah: 5,
+      _id: "64ed56e5c170d96a12b4ec38",
+    },
+  ],
+  _id: "64ed56e5c170d96a12b4ec36",
+  __v: 0,
+};
+
+let itemBarang = [
+  {
+    nama: "Ayam",
+    jumlah: 5,
+    _id: "64ed56e5c170d96a12b4ec38",
+  },
+];
+
+let {
+  produk: [part1],
+  _id,
+  pelanggan: { hp },
+} = data;
+
+console.log(part1);
+console.log(_id);
+console.log(hp);
 /**
  * Menambahkan input dan kodingan untuk memberikan diskon
  */
@@ -135,10 +186,8 @@ inputBudget.addEventListener("keyup", (e) => {
 });
 
 button.addEventListener("click", () => {
-  barang = new Barang(
-    document.querySelector("#input-todo").value,
-    document.querySelector("#input-harga").value
-  );
+  let { inputTitle, inputPrice } = actions;
+  barang = new Barang(inputTitle.value, inputPrice.value);
 
   barang.add();
   barang.setTotalHarga();

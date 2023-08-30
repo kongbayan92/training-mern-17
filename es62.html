@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="math.js"></script>
+  <title>Document</title>
+</head>
+<body>
+
+  <button>Klik Saya</button>
+  <script type="module">
+    
+    const pesenKopi2 = () => {
+      let hasil = "";
+      setTimeout(() => {
+          let bahanAda = false;
+          if (bahanAda) {
+            hasil = "kopi dibuat"
+
+          } else {
+            hasil = "kopi gagal dibikin"
+          }
+        }, 2000)
+
+        return hasil;
+    }
+
+    const pesenKopi = () => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          let bahanAda = true;
+          if (bahanAda) {
+            resolve("kopi jadi nih")
+          } else {
+            reject("kopi gagal dibikin")
+          }
+        }, 2000)
+      })
+    }
+
+    
+    const fungsiManggilKopi = () => {
+      pesenKopi().then((hasil) => {
+        console.log(hasil)
+      }).catch((error) => {
+        console.log(error)
+      });
+
+      // try {
+        
+      //   let hasil = await pesenKopi();
+      //   console.log(hasil)
+      // } catch (error) {
+      //   console.log("error kepanggil")
+      //   console.log(error)
+      // }
+
+    }
+    fungsiManggilKopi();
+  </script>
+</body>
+</html>
